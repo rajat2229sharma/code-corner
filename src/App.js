@@ -1,12 +1,12 @@
 import './App.css';
-import Login from './components/Login';
 import { Routes, Route, BrowserRouter } from 'react-router-dom';
-import Home from './components/Home';
-import About from './components/About';
-import Contact from './components/Contact';
-import Dashboard from './components/Dashboard';
-import Navlinks from './components/Navlinks';
-import ProtectRoutes from './components/ProtectRoutes';
+import Home from './pages/Home';
+import Login from './pages/Login';
+import About from './pages/About';
+import Contact from './pages/Contact';
+import Dashboard from './pages/Dashboard';
+import Navlinks from './components/Header/Navlinks';
+import ProtectRoutes from './routes/ProtectRoutes';
 import store from './redux/store';
 import { Provider } from 'react-redux';
 

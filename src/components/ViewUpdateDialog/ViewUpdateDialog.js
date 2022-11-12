@@ -6,11 +6,16 @@ import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
-import { updateTask } from '../redux/action';
+import { updateTask } from '../../redux/action';
+import { InputLabel, MenuItem, Select } from '@mui/material';
 
-const ViewUpdateDialog = ({ open, setOpen, viewEditData }) => {
+const ViewUpdateDialog = ({ open, setOpen, rowKey, viewEditData, validStatusKeys }) => {
 
-  const [ editData, setEditData ] = useState(viewEditData.data);
+  const [ taskData, setEditData ] = useState({
+    id: viewEditData.id,
+    status: viewEditData.status || '',
+    title: viewEditData.title || '',
+  });
   const [ error, setError ] = useState('');
 
   const dispatch = useDispatch();
@@ -18,8 +23,9 @@ const ViewUpdateDialog = ({ open, setOpen, viewEditData }) => {
   const handleClose = () => {
     setOpen(false);
   };
-  const handleUpdateChnage = (e) => {
-    setEditData(e.target.value);
+
+  const handleUpdateChnage = (e, key) => {
+    setEditData({ ...taskData , [key]: e.target.value });
   }
 
   const handleInputFocus = () => {
@@ -29,9 +35,9 @@ const ViewUpdateDialog = ({ open, setOpen, viewEditData }) => {
     }
 
   const handleUpdateSubmit = (id) => {
-    if (editData) {
-        dispatch(updateTask(id, editData))
-        setOpen(false);
+    if (taskData.id) {
+      dispatch(updateTask(taskData))
+      setOpen(false);
     } else {
         setError('Please add task!');
     }
@@ -43,8 +49,8 @@ const ViewUpdateDialog = ({ open, setOpen, viewEditData }) => {
         <DialogTitle>View and Update</DialogTitle>
         <DialogContent>
           <TextField
-            value={editData}
-            onChange={handleUpdateChnage}
+            value={taskData.title}
+            onChange={(e)=>handleUpdateChnage(e,'title')}
             autoFocus
             onFocus={handleInputFocus}
             margin="dense"
@@ -55,6 +61,18 @@ const ViewUpdateDialog = ({ open, setOpen, viewEditData }) => {
             variant="standard"
           />
           <div style={{ textAlign: 'left', color: 'red' }}><span>{error}</span></div>
+          <InputLabel id="demo-simple-select-label">Status</InputLabel>
+          <Select
+            labelId="demo-simple-select-label"
+            id="demo-simple-select"
+            value={taskData.status}
+            label="Status"
+            onChange={(e) => handleUpdateChnage(e,'status')}
+          >
+            {
+              validStatusKeys.map((item) => <MenuItem value={item.value}>{item.name}</MenuItem>)
+            }
+          </Select>
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose}>Cancel</Button>

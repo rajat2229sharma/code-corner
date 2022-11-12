@@ -1,11 +1,13 @@
+import taskStatusKeys from "../../helper/taskStatusKeys"
 import actionAll from "./action"
 
-export const addTask = (data) => {
+export const addTask = (title) => {
     return {
         type: actionAll.ADD_TASK,
         payload: {
             id: new Date().getTime().toString(),
-            data: data,
+            title: title,
+            status: taskStatusKeys.todo.key,
         },
     }
 }
@@ -13,16 +15,13 @@ export const addTask = (data) => {
 export const removeTask = (id) => {
     return {
         type: actionAll.REMOVE_TASK,
-        id
+        id,
     }
 }
 
-export const updateTask = (id, data) => {
+export const updateTask = (updatedData) => {
     return {
         type: actionAll.UPDATE_TASK,
-        payload: {
-            updateId: id,
-            updateData: data,
-        },
+        payload: updatedData,
     }
 }

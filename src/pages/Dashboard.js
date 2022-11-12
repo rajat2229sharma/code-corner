@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import {useSelector, useDispatch } from 'react-redux';
 import { addTask } from '../redux/action';
-import TodoTask from './TodoTask';
+import TaskRow from '../components/TaskRow/TaskRow';
+import taskStatusKeys from '../helper/taskStatusKeys';
 
 const Dashboard = () => {
 
@@ -28,7 +29,11 @@ const Dashboard = () => {
             setError('Please add task!');
         }
     }
-   
+
+    const { done, progress,review,todo} = taskStatusKeys;
+
+    const getRowData = (taskKey) => data.filter(item=>item.status === taskKey.key);
+
     return (
         <div style={{ marginTop: '4rem' }}>
             <div style={{ width: '23%', margin: '0 auto' }}>
@@ -38,10 +43,10 @@ const Dashboard = () => {
             </div>
             <div style={{ margin: '4rem auto', width: '98%', textAlign: 'left' }}>
                 <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                    <TodoTask todoData={data} />
-                    <TodoTask todoData={data} />
-                    <TodoTask todoData={data} />
-                    <TodoTask todoData={data} />
+                    <TaskRow rowData={getRowData(todo)} heading="TO DO" rowKey={todo}  />
+                    <TaskRow rowData={getRowData(progress)} heading="IN PROGRESS" rowKey={progress} />
+                    <TaskRow rowData={getRowData(review)} heading="IN REVIEW" rowKey={review} />
+                    <TaskRow rowData={getRowData(done)} heading="DONE" rowKey={done} />
                 </div>
             </div>
         </div>

@@ -9,15 +9,11 @@ const reducerData = (state = initialState, action) => {
     switch (action.type) {
 
         case actionAll.ADD_TASK:
-            const { id, data } = action.payload;
             return {
                 ...state,
                 list: [
                     ...state.list,
-                    {
-                        id: id,
-                        data: data,
-                    }
+                    action.payload
                 ]
             };
 
@@ -29,11 +25,10 @@ const reducerData = (state = initialState, action) => {
             };
 
         case actionAll.UPDATE_TASK:
-                const { updateId, updateData } = action.payload;
                 return {
                     ...state,
-                    list: [...state.list.filter((value) => value.id !== updateId),
-                        { id: updateId, data: updateData },
+                    list: [...state.list.filter((value) => value.id !== action.payload.id),
+                        action.payload,
                     ],
                 }
 
