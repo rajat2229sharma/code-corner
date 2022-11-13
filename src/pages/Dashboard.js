@@ -30,7 +30,7 @@ const Dashboard = () => {
         }
     }
 
-    const { done, progress,review,todo} = taskStatusKeys;
+    const { done, progress, review, todo } = taskStatusKeys;
 
     const getRowData = (taskKey) => data.filter(item=>item.status === taskKey.key);
 
@@ -38,7 +38,7 @@ const Dashboard = () => {
         <div style={{ marginTop: '4rem' }}>
             <div style={{ width: '23%', margin: '0 auto' }}>
                 <input onFocus={handleInputFocus} value={inputData} onChange={handleInputChange} style={{ padding: '5px 10px' }} type='text' />
-                <button onClick={handleSubmit} style={{ marginLeft: '5px', border: 'none', padding: '6px 10px', backgroundColor: 'blue', color: 'white' }}>Create Task</button>
+                <button onClick={handleSubmit} style={{ marginLeft: '5px', border: 'none', padding: '8px 10px', borderRadius: '4px', fontWeight: 'bold', backgroundColor: 'gray', color: 'black' }}>Create Task</button>
                 <div style={{ textAlign: 'left', color: 'red' }}><span>{error}</span></div>
             </div>
             <div style={{ margin: '4rem auto', width: '98%', textAlign: 'left' }}>

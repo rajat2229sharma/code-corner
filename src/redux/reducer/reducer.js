@@ -27,10 +27,10 @@ const reducerData = (state = initialState, action) => {
         case actionAll.UPDATE_TASK:
                 return {
                     ...state,
-                    list: [...state.list.map((value) =>{
+                    list: [...state.list.map((value) => {
                         if (value.id === action.payload.id) return action.payload;
-                        return value;
-                    })
+                            return value;
+                        })
                     ],
                 }
 

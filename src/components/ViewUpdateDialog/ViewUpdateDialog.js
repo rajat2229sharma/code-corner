@@ -55,7 +55,7 @@ const ViewUpdateDialog = ({ open, setOpen, rowKey, viewEditData, validStatusKeys
             onFocus={handleInputFocus}
             margin="dense"
             id="name"
-            label="name"
+            label="Name"
             type="text"
             fullWidth
             variant="standard"
@@ -63,6 +63,7 @@ const ViewUpdateDialog = ({ open, setOpen, rowKey, viewEditData, validStatusKeys
           <div style={{ textAlign: 'left', color: 'red' }}><span>{error}</span></div>
           <InputLabel id="demo-simple-select-label">Status</InputLabel>
           <Select
+            fullWidth
             labelId="demo-simple-select-label"
             id="demo-simple-select"
             value={taskData.status}
@@ -70,7 +71,7 @@ const ViewUpdateDialog = ({ open, setOpen, rowKey, viewEditData, validStatusKeys
             onChange={(e) => handleUpdateChnage(e,'status')}
           >
             {
-              validStatusKeys.map((item) => <MenuItem value={item.value}>{item.name}</MenuItem>)
+              validStatusKeys.map((item, index) => <MenuItem key={index} value={item.value}>{item.name}</MenuItem>)
             }
           </Select>
         </DialogContent>
