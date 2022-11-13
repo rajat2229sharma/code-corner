@@ -9,14 +9,17 @@ import DialogTitle from '@mui/material/DialogTitle';
 import { updateTask } from '../../redux/action';
 import { InputLabel, MenuItem, Select } from '@mui/material';
 
-const ViewUpdateDialog = ({ open, setOpen, rowKey, viewEditData, validStatusKeys }) => {
+const ViewUpdateDialog = ({ open, setOpen, viewEditData, validStatusKeys }) => {
 
   const [ taskData, setEditData ] = useState({
     id: viewEditData.id,
     status: viewEditData.status || '',
     title: viewEditData.title || '',
   });
+
   const [ error, setError ] = useState('');
+  const [ commentData, setCommentData ] = useState([]);
+  const [ comment, setComment ] = useState('');
 
   const dispatch = useDispatch();
 
@@ -26,6 +29,17 @@ const ViewUpdateDialog = ({ open, setOpen, rowKey, viewEditData, validStatusKeys
 
   const handleUpdateChnage = (e, key) => {
     setEditData({ ...taskData , [key]: e.target.value });
+  }
+
+  const handleAddComment = (commentVal) => {
+    if(commentVal){
+      setComment(commentVal);
+    }
+  }
+
+  const handleAddCommentButton = () => {
+    setCommentData([...commentData, comment]);
+    setComment('')
   }
 
   const handleInputFocus = () => {
@@ -74,6 +88,20 @@ const ViewUpdateDialog = ({ open, setOpen, rowKey, viewEditData, validStatusKeys
               validStatusKeys.map((item, index) => <MenuItem key={index} value={item.value}>{item.name}</MenuItem>)
             }
           </Select>
+        <div>
+          <h4>Comment</h4>
+          <input type="text" value={comment} onChange={(e)=>handleAddComment(e.target.value)}  />
+          <button onClick={handleAddCommentButton}>Add Comment</button>
+            {commentData?.length < 1 ? <p>No Comments</p> : (
+            <div>
+                {commentData?.map((item)=>(
+                  <div key={item}>
+                    <p>{item}</p>
+                  </div>
+                ))}
+            </div>
+          )}
+        </div>
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose}>Cancel</Button>
